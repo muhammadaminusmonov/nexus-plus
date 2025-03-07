@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'category'
 ]
 
 MIDDLEWARE = [
@@ -75,9 +76,13 @@ WSGI_APPLICATION = 'nexus.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "nexus_db",
+        "USER": "nexus_user",
+        "PASSWORD": "nexus_user",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -122,6 +127,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+
+MEDIA_URL = 'images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

@@ -221,12 +221,9 @@
                                         <div class="select">
                                             <select>
                                                 <option value="none">Locations</option>
-                                                <option value="none">New York</option>
-                                                <option value="none">California</option>
-                                                <option value="none">Washington</option>
-                                                <option value="none">Birmingham</option>
-                                                <option value="none">Chicago</option>
-                                                <option value="none">Phoenix</option>
+                                                {% for region in regions %}
+                                                <option value="none">{{ region.name }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                         <i class="lni-target"></i>
@@ -236,7 +233,7 @@
                                             <select>
                                                 <option value="none">Select Category</option>
                                                 {% for ctg in categories %}
-                                                    <option value="none">{{ ctg.name }}</option>
+                                                <option value="none">{{ ctg.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -286,6 +283,7 @@
     <div class="container">
         <h1 class="section-title">Latest Products</h1>
         <div class="row">
+            {% for product in products %}
             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                 <div class="featured-box">
                     <figure>
@@ -293,218 +291,30 @@
                             <span class="bg-green"><i class="lni-heart"></i></span>
                             <span><i class="lni-bookmark"></i></span>
                         </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-1.jpg"></a>
+                        <a href="#"><img alt="" class="img-fluid" src="images/ {{ product.images }}"></a>
                     </figure>
                     <div class="feature-content">
                         <div class="product">
-                            <a href="#">Electronic > </a>
-                            <a href="#">Cameras</a>
+                            <a href="#">{{ product.category }}</a>
                         </div>
-                        <h4><a href="ads-details.html">Canon SX Powershot ...</a></h4>
+                        <h4><a href="ads-details.html">{{ product.title }} ...</a></h4>
                         <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> John Smith</a>
-</span>
                             <span>
-<a href="#"><i class="lni-map-marker"></i> New York, US</a>
-</span>
+                                <a href="#"><i class="lni-user"></i>{{ product.user }}</a>
+                            </span>
                             <span>
-<a href="#"><i class="lni-tag"></i> Canon</a>
-</span>
+                                <a href="#"><i class="lni-map-marker"></i>{{ product.region }}</a>
+                            </span>
                         </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
+                        <p class="dsc">{{ product.description }}</p>
                         <div class="listing-bottom">
-                            <h3 class="price float-left">$249.00</h3>
+                            <h3 class="price float-left">{{ product.price }}</h3>
                             <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="featured-box">
-                    <figure>
-<span class="price-save">
-25% Save
-</span>
-                        <div class="icon">
-                            <span class="bg-green"><i class="lni-heart"></i></span>
-                            <span><i class="lni-bookmark"></i></span>
-                        </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-2.jpg"></a>
-                    </figure>
-                    <div class="feature-content">
-                        <div class="product">
-                            <a href="#">Electronic > </a>
-                            <a href="#">Computers</a>
-                        </div>
-                        <h4><a href="ads-details.html">Apple Macbook Pro ...</a></h4>
-                        <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> Sara Doe</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-map-marker"></i> California, US</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-tag"></i> Phones</a>
-</span>
-                        </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
-                        <div class="listing-bottom">
-                            <h3 class="price float-left">$289.00</h3>
-                            <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="featured-box">
-                    <figure>
-                        <div class="icon">
-                            <span class="bg-green"><i class="lni-heart"></i></span>
-                            <span><i class="lni-bookmark"></i></span>
-                        </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-3.jpg"></a>
-                    </figure>
-                    <div class="feature-content">
-                        <div class="product">
-                            <a href="#">Vehicle > </a>
-                            <a href="#">Cars</a>
-                        </div>
-                        <h4><a href="ads-details.html">Mercedes Benz E200 ...</a></h4>
-                        <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> Rossi Josh</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-map-marker"></i> Washington, US</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-tag"></i> Others</a>
-</span>
-                        </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
-                        <div class="listing-bottom">
-                            <h3 class="price float-left">$199.80</h3>
-                            <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="featured-box">
-                    <figure>
-<span class="price-save">
-10% Save
-</span>
-                        <div class="icon">
-                            <span class="bg-green"><i class="lni-heart"></i></span>
-                            <span><i class="lni-bookmark"></i></span>
-                        </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-4.jpg"></a>
-                    </figure>
-                    <div class="feature-content">
-                        <div class="product">
-                            <a href="#">Others > </a>
-                            <a href="#">Bags</a>
-                        </div>
-                        <h4><a href="ads-details.html">Brown Leather Bag ...</a></h4>
-                        <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> Maria Barlow</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-map-marker"></i> Chicago, US</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-tag"></i> Gucci</a>
-</span>
-                        </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
-                        <div class="listing-bottom">
-                            <h3 class="price float-left">$206.90</h3>
-                            <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="featured-box">
-                    <figure>
-                        <div class="icon">
-                            <span class="bg-green"><i class="lni-heart"></i></span>
-                            <span><i class="lni-bookmark"></i></span>
-                        </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-5.jpg"></a>
-                    </figure>
-                    <div class="feature-content">
-                        <div class="product">
-                            <a href="#">Electronic > </a>
-                            <a href="#">Apple</a>
-                        </div>
-                        <h4><a href="ads-details.html">Iphonex 6 Plus Factor ...</a></h4>
-                        <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> David Givens</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-map-marker"></i> New York, US</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-tag"></i> Apple</a>
-</span>
-                        </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
-                        <div class="listing-bottom">
-                            <h3 class="price float-left">$106.70</h3>
-                            <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
-                <div class="featured-box">
-                    <figure>
-<span class="price-save">
-35% Save
-</span>
-                        <div class="icon">
-                            <span class="bg-green"><i class="lni-heart"></i></span>
-                            <span><i class="lni-bookmark"></i></span>
-                        </div>
-                        <a href="#"><img alt="" class="img-fluid" src="assets/img/featured/img-6.jpg"></a>
-                    </figure>
-                    <div class="feature-content">
-                        <div class="product">
-                            <a href="#">Furniture > </a>
-                            <a href="#">Home</a>
-                        </div>
-                        <h4><a href="ads-details.html">Wooden Dining Tabl ...</a></h4>
-                        <div class="meta-tag">
-<span>
-<a href="#"><i class="lni-user"></i> John Smith</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-map-marker"></i> New York, US</a>
-</span>
-                            <span>
-<a href="#"><i class="lni-tag"></i> Apple</a>
-</span>
-                        </div>
-                        <p class="dsc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry.</p>
-                        <div class="listing-bottom">
-                            <h3 class="price float-left">$120.00</h3>
-                            <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -516,249 +326,50 @@
             <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                 <h3 class="section-title">Featured Products</h3>
                 <div class="owl-carousel owl-theme" id="new-products">
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img1.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
+                    {% for product in featured_products %}
+                        <div class="item">
+                            <div class="product-item">
+                                <div class="carousel-thumb">
+                                    <img alt="" class="img-fluid" src="images/ {{ product.images }}">
+                                    <div class="overlay">
+                                        <div>
+                                            <a class="btn btn-common" href="ads-details.html">View Details</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="btn-product bg-sale">
-                                    <a href="#">Sale</a>
-                                </div>
-                                <span class="price">$999.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">Macbook Pro 2020</a></h3>
-                                <span>Electronic / Computers</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star"></i>
-</span>
-                                        <span class="count-review">
-(12 Review)
-</span>
+                                    <div class="btn-product bg-sale">
+                                        <a href="#">Sale</a>
                                     </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> New York</a>
-                                    </div>
+                                    <span class="price">{{ product.price }}</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img2.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
+                                <div class="product-content">
+                                    <h3 class="product-title"><a href="ads-details.html">{{ product.title }}</a></h3>
+                                    <span>{{ product.category }}</span>
+                                    <div class="icon">
+                                        <span><i class="lni-bookmark"></i></span>
+                                        <span><i class="lni-heart"></i></span>
                                     </div>
-                                </div>
-                                <span class="price">$269.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">Nikon Camera</a></h3>
-                                <span>Electronic / Camera</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-</span>
-                                        <span class="count-review">
-(2 Review)
-</span>
-                                    </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> California</a>
+                                    <div class="card-text">
+                                        <div class="float-left">
+                                            <span class="icon-wrap">
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star-filled"></i>
+                                                <i class="lni-star"></i>
+                                            </span>
+                                            <span class="count-review">
+                                                {{ product.review_count }}
+                                            </span>
+                                        </div>
+                                        <div class="float-right">
+                                            <a class="address" href="#"><i class="lni-map-marker"></i>{{ product.region }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img3.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
-                                    </div>
-                                </div>
-                                <div class="btn-product bg-slod">
-                                    <a href="#">Sold</a>
-                                </div>
-                                <span class="price">$799.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">iPhone X Refurbished</a></h3>
-                                <span>Electronic / Phones</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star"></i>
-</span>
-                                        <span class="count-review">
-(8 Review)
-</span>
-                                    </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> New York</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img4.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
-                                    </div>
-                                </div>
-                                <span class="price">$99.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">Baby Toy</a></h3>
-                                <span>Sports / Baby Toys</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star"></i>
-</span>
-                                        <span class="count-review">
-(12 Review)
-</span>
-                                    </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> New York</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img5.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
-                                    </div>
-                                </div>
-                                <span class="price">$99.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">Baby Toy</a></h3>
-                                <span>Sports / Baby Toys</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star"></i>
-</span>
-                                        <span class="count-review">
-(12 Review)
-</span>
-                                    </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> New York</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product-item">
-                            <div class="carousel-thumb">
-                                <img alt="" class="img-fluid" src="assets/img/product/img6.jpg">
-                                <div class="overlay">
-                                    <div>
-                                        <a class="btn btn-common" href="ads-details.html">View Details</a>
-                                    </div>
-                                </div>
-                                <div class="btn-product bg-sale">
-                                    <a href="#">Sale</a>
-                                </div>
-                                <span class="price">$99.00</span>
-                            </div>
-                            <div class="product-content">
-                                <h3 class="product-title"><a href="ads-details.html">Baby Toy</a></h3>
-                                <span>Sports / Baby Toys</span>
-                                <div class="icon">
-                                    <span><i class="lni-bookmark"></i></span>
-                                    <span><i class="lni-heart"></i></span>
-                                </div>
-                                <div class="card-text">
-                                    <div class="float-left">
-<span class="icon-wrap">
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star-filled"></i>
-<i class="lni-star"></i>
-</span>
-                                        <span class="count-review">
-(12 Review)
-</span>
-                                    </div>
-                                    <div class="float-right">
-                                        <a class="address" href="#"><i class="lni-map-marker"></i> New York</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

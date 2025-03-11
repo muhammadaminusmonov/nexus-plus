@@ -27,7 +27,8 @@ class Product(models.Model):
     price = models.IntegerField(null=True, blank=True)
     price_on_call = models.BooleanField(default=False)
     slug = models.SlugField()
-
+    featured = models.BooleanField(default=False)
+    review = models.ForeignKey('ProductReview', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now_add=True)
 
@@ -39,6 +40,13 @@ class ProductView(models.Model):
     view_count = models.IntegerField(default=0)
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to='')
     is_main = models.BooleanField(default=False)
+
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    review = models.TextField(null=False, blank=False)
+    rating = models.SmallIntegerField(null=False, blank=False)
+    created_at = models.DateTimeField(auto_now=True, editable=False)

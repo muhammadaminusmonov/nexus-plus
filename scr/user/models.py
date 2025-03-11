@@ -10,4 +10,4 @@ class Profile(models.Model):
     image = models.ImageField(upload_to='', null=True, blank=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username

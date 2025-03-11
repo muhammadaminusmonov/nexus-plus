@@ -291,24 +291,24 @@
                             <span class="bg-green"><i class="lni-heart"></i></span>
                             <span><i class="lni-bookmark"></i></span>
                         </div>
-                        <a href="#"><img alt="" class="img-fluid" src="images/ {{ product.images }}"></a>
+                        <a href="#"><img alt="" class="img-fluid" src="images/{{ product.images.first.image }}"></a>
                     </figure>
                     <div class="feature-content">
                         <div class="product">
                             <a href="#">{{ product.category }}</a>
                         </div>
-                        <h4><a href="ads-details.html">{{ product.title }} ...</a></h4>
+                        <h4><a href="ads-details.html">{{ product.title|slice:":25" }} ...</a></h4>
                         <div class="meta-tag">
                             <span>
                                 <a href="#"><i class="lni-user"></i>{{ product.user }}</a>
                             </span>
                             <span>
-                                <a href="#"><i class="lni-map-marker"></i>{{ product.region }}</a>
+                                <a href="#"><i class="lni-map-marker"></i>{{ product.location.name }}</a>
                             </span>
                         </div>
-                        <p class="dsc">{{ product.description }}</p>
+                        <p class="dsc">{{ product.description|slice:":150" }}...</p>
                         <div class="listing-bottom">
-                            <h3 class="price float-left">{{ product.price }}</h3>
+                            <h3 class="price float-left">${{ product.price }}</h3>
                             <a class="btn btn-common float-right" href="ads-details.html">View Details</a>
                         </div>
                     </div>
@@ -330,7 +330,7 @@
                         <div class="item">
                             <div class="product-item">
                                 <div class="carousel-thumb">
-                                    <img alt="" class="img-fluid" src="images/ {{ product.images }}">
+                                    <img alt="" class="img-fluid" src="images/{{ product.images.first.image }}">
                                     <div class="overlay">
                                         <div>
                                             <a class="btn btn-common" href="ads-details.html">View Details</a>
@@ -339,7 +339,7 @@
                                     <div class="btn-product bg-sale">
                                         <a href="#">Sale</a>
                                     </div>
-                                    <span class="price">{{ product.price }}</span>
+                                    <span class="price">${{ product.price }}</span>
                                 </div>
                                 <div class="product-content">
                                     <h3 class="product-title"><a href="ads-details.html">{{ product.title }}</a></h3>
@@ -363,7 +363,7 @@
                                             </span>
                                         </div>
                                         <div class="float-right">
-                                            <a class="address" href="#"><i class="lni-map-marker"></i>{{ product.region }}</a>
+                                            <a class="address" href="#"><i class="lni-map-marker"></i>{{ product.location.name }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -577,7 +577,7 @@
                 <div class="owl-carousel" id="testimonials">
                     <div class="item">
                         <div class="img-thumb">
-                            <img alt="" src="assets/img/testimonial/img1.png">
+                            <img alt="" src="../static/img/testimonial/img1.png">
                         </div>
                         <div class="testimonial-item">
                             <div class="content">
@@ -594,7 +594,7 @@
                     <div class="item">
                         <div class="item">
                             <div class="img-thumb">
-                                <img alt="" src="assets/img/testimonial/img2.png">
+                                <img alt="" src="../static/img/testimonial/img2.png">
                             </div>
                             <div class="testimonial-item">
                                 <div class="content">
@@ -612,7 +612,7 @@
                     <div class="item">
                         <div class="item">
                             <div class="img-thumb">
-                                <img alt="" src="assets/img/testimonial/img3.png">
+                                <img alt="" src="../static/img/testimonial/img3.png">
                             </div>
                             <div class="testimonial-item">
                                 <div class="content">
@@ -630,7 +630,7 @@
                     <div class="item">
                         <div class="item">
                             <div class="img-thumb">
-                                <img alt="" src="assets/img/testimonial/img4.png">
+                                <img alt="" src="../static/img/testimonial/img4.png">
                             </div>
                             <div class="testimonial-item">
                                 <div class="content">
@@ -648,7 +648,7 @@
                     <div class="item">
                         <div class="item">
                             <div class="img-thumb">
-                                <img alt="" src="assets/img/testimonial/img5.png">
+                                <img alt="" src="../static/img/testimonial/img5.png">
                             </div>
                             <div class="testimonial-item">
                                 <div class="content">
@@ -677,84 +677,29 @@
             Blog Post
         </h2>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img alt="" src="assets/img/blog/img-1.jpg">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="user float-left"><a href="#"><i
-                                    class="lni-user"></i> Posted By Admin</a></span>
-                            <span class="date float-right"><i class="lni-calendar"></i> 24 May, 2018</span>
+            {% for blog in blogs %}
+                <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
+                    <div class="blog-item-wrapper">
+                        <div class="blog-item-img">
+                            <a href="single-post.html">
+                                <img alt="" src="images/{{ blog.image }}">
+                            </a>
                         </div>
-                        <h3>
-                            <a href="single-post.html">Recently Launching Our Iphone X</a>
-                        </h3>
-                        <p>
-                            Reprehenderit nemo quod tempore doloribus ratione distinctio quis quidem vitae sunt
-                            reiciendis, molestias omnis soluta.
-                        </p>
-                        <a class="btn btn-common" href="single-post.html">Read More</a>
+                        <div class="blog-item-text">
+                            <div class="meta-tags">
+                                <span class="user float-left"><a href="#"><i
+                                        class="lni-user"></i>{{ blog.user }}</a></span>
+                                <span class="date float-right"><i class="lni-calendar"></i>{{ blog.created_at|date:"d/m/Y" }}</span>
+                            </div>
+                            <h3>
+                                <a href="single-post.html">{{ blog.title|slice:":30" }} ...</a>
+                            </h3>
+                            <p>{{ blog.content|slice:":200" }} ...</p>
+                            <a class="btn btn-common" href="single-post.html">Read More</a>
+                        </div>
                     </div>
                 </div>
-
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img alt="" src="assets/img/blog/img-2.jpg">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="user float-left"><a href="#"><i
-                                    class="lni-user"></i> Posted By Admin</a></span>
-                            <span class="date float-right"><i class="lni-calendar"></i> 24 May, 2018</span>
-                        </div>
-                        <h3>
-                            <a href="single-post.html">How to get more ad views</a>
-                        </h3>
-                        <p>
-                            Reprehenderit nemo quod tempore doloribus ratione distinctio quis quidem vitae sunt
-                            reiciendis, molestias omnis soluta.
-                        </p>
-                        <a class="btn btn-common" href="single-post.html">Read More</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-
-                <div class="blog-item-wrapper">
-                    <div class="blog-item-img">
-                        <a href="single-post.html">
-                            <img alt="" src="assets/img/blog/img-3.jpg">
-                        </a>
-                    </div>
-                    <div class="blog-item-text">
-                        <div class="meta-tags">
-                            <span class="user float-left"><a href="#"><i
-                                    class="lni-user"></i> Posted By Admin</a></span>
-                            <span class="date float-right"><i class="lni-calendar"></i> 24 May, 2018</span>
-                        </div>
-                        <h3>
-                            <a href="single-post.html">Writing a better product description</a>
-                        </h3>
-                        <p>
-                            Reprehenderit nemo quod tempore doloribus ratione distinctio quis quidem vitae sunt
-                            reiciendis, molestias omnis soluta.
-                        </p>
-                        <a class="btn btn-common" href="single-post.html">Read More</a>
-                    </div>
-                </div>
-
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

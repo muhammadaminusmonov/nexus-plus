@@ -45,8 +45,11 @@ class ProductImage(models.Model):
     is_main = models.BooleanField(default=False)
 
 class ProductReview(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    products = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     review = models.TextField(null=False, blank=False)
     rating = models.SmallIntegerField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now=True, editable=False)
+
+    def __str__(self):
+        return f"{self.user} - {self.products}"

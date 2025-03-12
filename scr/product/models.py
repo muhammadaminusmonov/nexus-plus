@@ -53,3 +53,18 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.products}"
+
+
+class Discount(models.Model):
+    status_types = [
+        (1, "ACTIVE"),
+        (2, "INACTIVE")
+    ]
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    percentage = models.SmallIntegerField(null=False, blank=False)
+    status = models.SmallIntegerField(choices=status_types, default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.percentage}% off"

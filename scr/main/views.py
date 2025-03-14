@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from category.models import Category
 from region.models import Region
-from product.models import Product
-from django.db.models import Count
+from product.models import Product, ProductImage
+from django.db.models import Count, Prefetch
 from blog.models import Blog
 
 
@@ -13,15 +13,16 @@ def home_page(request):
         Product.objects
         .order_by('-created_at')[:6]
         .select_related('category', 'location', 'brand', 'user')
-        .prefetch_related('images')
+        .prefetch_related(Prefetch('images', queryset=ProductImage.objects.filter(is_main=True)))
     )
     featured_products = (
         Product.objects
         .filter(featured=True)
-        .select_related("review", "category", "location")
-        .prefetch_related("images")
+        .select_related("category", "location", "review")
+        .prefetch_related(Prefetch("images", queryset=ProductImage.objects.filter(is_main=True)))
         .annotate(review_count=Count("review"))
     )
+
     blogs = Blog.objects.order_by('-created_at')[:3].select_related("user")
 
     ctx = {

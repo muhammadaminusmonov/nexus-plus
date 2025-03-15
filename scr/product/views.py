@@ -8,7 +8,13 @@ from django.core.paginator import Paginator
 
 def product_list(request):
     regions = Region.objects.all()
-    categories = Category.objects.filter(parent=None, status=1)
+    categories = (
+        Category.objects
+        .filter(parent=None, status=1)
+        .annotate(
+            product_count=Count('product', distinct=True) + Count('children__product', distinct=True)
+        )
+    )
     products = (
         Product.objects
         .filter(status=1)

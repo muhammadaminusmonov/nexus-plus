@@ -107,10 +107,10 @@
                             {% for product in products_by_seller %}
                                 <li>
                                     <div class="widget-thumb">
-                                        <a href="{% url 'product_detail' pk=product.id %}"><img src="/images/{{ product.images.first.image }}" alt=""/></a>
+                                        <a href="{% url 'product_detail' pk=product.id slug=product.slug %}"><img src="/images/{{ product.images.first.image }}" alt=""/></a>
                                     </div>
                                     <div class="widget-content">
-                                        <h4><a href="{% url 'product_detail' pk=product.id %}">{{ product.title|slice:":25" }} ...</a></h4>
+                                        <h4><a href="{% url 'product_detail' pk=product.id slug=product.slug %}">{{ product.title|slice:":25" }} ...</a></h4>
                                         <div class="meta-tag">
                                             <span>
                                                 <a href="#"><i class="lni-user"></i>{{ product.user.firstname }}</a>

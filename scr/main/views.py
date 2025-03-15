@@ -4,7 +4,7 @@ from region.models import Region
 from product.models import Product, ProductImage
 from django.db.models import Count, Prefetch
 from blog.models import Blog
-
+from category.models import Category
 
 def home_page(request):
     categories = Category.objects.filter(is_main=True)

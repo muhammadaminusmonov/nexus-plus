@@ -4,34 +4,34 @@ from category.models import Category
 from django.db.models import Count, Sum, Prefetch
 from product.models import Product, ProductImage
 from user.models import Profile
+from django.core.paginator import Paginator
 
 def product_list(request):
     regions = Region.objects.all()
-    categories = Category.objects.filter(parent=None)
-    count_products = Category.objects.aggregate(Count('product'))
-    category_count_product = (
-        Category.objects
-        .filter(parent=None)
-        .annotate(count_product=Count('product') + Sum('category__product'))
-    )
+    categories = Category.objects.filter(parent=None, status=1)
     products = (
         Product.objects
         .filter(status=1)
-        .order_by('-created_at')[:12]
+        .order_by('-created_at')
         .select_related('category', 'location', 'brand', 'user', 'discount')
         .prefetch_related('images')
     )
 
+    paginator = Paginator(products, 1)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
     ctx = {
         "regions": regions,
         "categories": categories,
-        "count_products": count_products,
-        "category_count_product": category_count_product,
-        "products": products,
+        "page_obj": page_obj,
+        "total_products": products.count,
+        "page_range": paginator.page_range,
+        "page_number": page_number,
     }
     return render(request, 'products.html', ctx)
 
-def product_detail(request, pk):
+def product_detail(request, pk, slug=None):
     product = (
         Product.objects
         .select_related('category', 'location', 'brand', 'user', 'discount', 'review')

@@ -71,11 +71,11 @@
                     <div class="widget categories">
                         <h4 class="widget-title">All Categories</h4>
                         <ul class="categories-list">
-                            {% for category in category_count_product %}
+                            {% for ctg in categories %}
                                 <li>
                                     <a href="#">
-                                        {{ category.name }}
-                                        <span class="category-counter">{{ category.count_product }}</span>
+                                        {{ ctg.name }}
+                                        <span class="category-counter">{{ ctg.children.count }}</span>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -84,7 +84,7 @@
                     <div class="widget">
                         <h4 class="widget-title">Advertisement</h4>
                         <div class="add-box">
-                            <img class="img-fluid" src="{% static '/img/img1.jpg' %}" alt="">
+                            <img class="img-fluid" src="{% static '/img/img1.jpg' %}" alt="" style="width: 720px;">
                         </div>
                     </div>
                 </aside>
@@ -93,7 +93,7 @@
 
                 <div class="product-filter">
                     <div class="short-name">
-                        <span>Showing ({{ count_products.product__count }} products)</span>
+                        <span>Showing ({{ page_obj.start_index }} - {{ page_obj.end_index }} products of {{ total_products }})</span>
                     </div>
                     <div class="Show-item">
                         <span>Show Items</span>
@@ -124,7 +124,7 @@
                     <div class="tab-content">
                         <div id="grid-view" class="tab-pane fade">
                             <div class="row">
-                                {% for product in products %}
+                                {% for product in page_obj %}
                                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="featured-box">
                                             <figure>
@@ -135,8 +135,8 @@
                                                     <span class="bg-green"><i class="lni-heart"></i></span>
                                                     <span><i class="lni-bookmark"></i></span>
                                                 </div>
-                                                <a href="{% url 'product_detail' pk=product.id %}">
-                                                    <img class="img-fluid" src="/images/{{ product.images.first.image }}" alt="">
+                                                <a href="{% url 'product_detail' pk=product.id slug=product.slug %}">
+                                                    <img class="img-fluid" src="/images/{{ product.images.first.image }}" alt="" style="height: 720px; height: 260px;">
                                                 </a>
                                             </figure>
                                             <div class="feature-content">
@@ -155,10 +155,10 @@
                                                         <a href="#"><i class="lni-tag"></i>{{ product.brand }}</a>
                                                     </span>
                                                 </div>
-                                                <p class="dsc">{{ product.description|slice:":150" }} ...</p>
+                                                <p class="dsc">{{ product.description|slice:":100" }} ...</p>
                                                 <div class="listing-bottom">
                                                     <h3 class="price float-left">${{ product.price }}</h3>
-                                                    <a href="{% url 'product_detail' pk=product.id %}" class="btn btn-common float-right">View
+                                                    <a href="{% url 'product_detail' pk=product.id slug=product.slug %}" class="btn btn-common float-right">View
                                                         Details</a>
                                                 </div>
                                             </div>
@@ -169,7 +169,7 @@
                         </div>
                         <div id="list-view" class="tab-pane fade active show">
                             <div class="row">
-                                {% for product in products %}
+                                {% for product in page_obj %}
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                         <div class="featured-box">
                                             <figure>
@@ -178,8 +178,8 @@
                                                     <span class="bg-green"><i class="lni-heart"></i></span>
                                                     <span><i class="lni-bookmark"></i></span>
                                                 </div>
-                                                <a href="{% url 'product_detail' pk=product.id %}">
-                                                    <img class="img-fluid" src="/images/{{ product.images.first.image }}" alt="">
+                                                <a href="{% url 'product_detail' pk=product.id slug=product.slug %}">
+                                                    <img class="img-fluid" src="/images/{{ product.images.first.image }}" alt="" style="height: 720px; height: 260px;">
                                                 </a>
                                             </figure>
                                             <div class="feature-content">
@@ -198,10 +198,10 @@
                                                         <a href="#"><i class="lni-tag"></i>{{ product.brand }}</a>
                                                     </span>
                                                 </div>
-                                                <p class="dsc">{{ product.description|slice:":200" }} ...</p>
+                                                <p class="dsc">{{ product.description|slice:":100" }} ...</p>
                                                 <div class="listing-bottom">
                                                     <h3 class="price float-left">${{ product.price }}</h3>
-                                                    <a href="{% url 'product_detail' pk=product.id %}" class="btn btn-common float-right">View
+                                                    <a href="{% url 'product_detail' pk=product.id slug=product.slug %}" class="btn btn-common float-right">View
                                                         Details</a>
                                                 </div>
                                             </div>
@@ -217,10 +217,15 @@
                 <div class="pagination-bar">
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                            {% endif %}
+                            <li class="page-item"><a class="page-link active" href="#"> {{ page_number }} </a></li>
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">{{page_obj.next_page_number}}</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+                            {% endif %}
                         </ul>
                     </nav>
                 </div>

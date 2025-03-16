@@ -22,4 +22,4 @@ class BlogComment(models.Model):
     reply = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True, related_name="replies")
 
     def __str__(self):
-        return self.user
+        return self.user.user

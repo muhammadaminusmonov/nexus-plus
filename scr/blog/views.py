@@ -14,7 +14,7 @@ def blogs(request):
             comment_count=Count('comments') + Count('comments__replies')
         )
     )
-    paginator = Paginator(all_blogs, 1)
+    paginator = Paginator(all_blogs, 3)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
@@ -29,7 +29,8 @@ def blogs(request):
     recent_blogs = Blog.objects.order_by('-created_at')[:5]
 
     ctx = {
-        'blogs': page_obj,
+        'page_number': page_number,
+        'page_obj': page_obj,
         'categories': categories,
         'recent_blogs': recent_blogs,
     }

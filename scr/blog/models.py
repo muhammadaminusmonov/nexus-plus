@@ -1,6 +1,7 @@
 from django.db import models
 from user.models import Profile
 from category.models import Category
+from django.utils.text import slugify
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
@@ -10,6 +11,12 @@ class Blog(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=False)
+    slug = models.SlugField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

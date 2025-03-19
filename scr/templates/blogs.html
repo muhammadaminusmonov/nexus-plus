@@ -75,7 +75,7 @@
 
                             {% if page_obj.has_next %}
                                 {% for i in page_obj.paginator.page_range %}
-                                    {% if i > page_obj.number and i <= page_obj.number|add:"2" %}
+                                    {% if i > page_obj.number and i <= page_obj.number|add:"2 " %}
                                         <li class="page-item">
                                             <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                                         </li>

@@ -35,3 +35,10 @@ def blogs(request):
         'recent_blogs': recent_blogs,
     }
     return render(request, 'blogs.html', ctx)
+
+def blog_detail(request, pk, slug=None):
+
+    ctx = {
+
+    }
+    return render(request, 'blog_detail.html', ctx)

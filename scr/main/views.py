@@ -33,3 +33,23 @@ def home_page(request):
         "blogs": blogs,
     }
     return render(request, 'index.html', ctx)
+
+def about_page(request):
+    ctx = {}
+    return render(request, 'about.html', ctx)
+
+def services_page(request):
+    ctx = {}
+    return render(request, 'services.html', ctx)
+
+def packages_page(request):
+    ctx = {}
+    return render(request, 'packages.html', ctx)
+
+def faq_page(request):
+    ctx = {}
+    return render(request, 'faq.html', ctx)
+
+def contact_page(request):
+    ctx = {}
+    return render(request, 'contact.html', ctx)

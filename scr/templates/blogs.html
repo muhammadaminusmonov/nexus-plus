@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+
 
 {% block banner %}
 
-<div class="page-header" style="background: url({% static 'img/banner1.jpg' %});">
+<div class="page-header" style="background: url('../static/img/banner1.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -34,7 +34,7 @@
                     <div class="blog-post">
 
                         <div class="post-thumb">
-                            <a href="#"><img class="img-fluid" src="/images/{{ blog.image }}" alt=""></a>
+                            <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}"><img class="img-fluid" src="/images/{{ blog.image }}" alt=""></a>
                             <div class="hover-wrap"></div>
                         </div>
 
@@ -46,11 +46,11 @@
                                 <span class="meta-part"><a href="#"><i class="lni-folder"></i> {{ blog.category }}</a></span>
                                 <span class="meta-part"><a href="#"><i class="lni-comments-alt"></i> {{ blog.comment_count }} Comments</a></span>
                             </div>
-                            <h2 class="post-title"><a href="single-post.html">{{ blog.title }}</a></h2>
+                            <h2 class="post-title"><a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">{{ blog.title }}</a></h2>
                             <div class="entry-summary">
                                 <p>{{ blog.content|slice:":450" }} ...</p>
                             </div>
-                            <a href="single-post.html" class="btn btn-common">Read More</a>
+                            <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}" class="btn btn-common">Read More</a>
                         </div>
 
                     </div>
@@ -118,10 +118,10 @@
                         {% for blog in recent_blogs %}
                             <li>
                                 <div class="widget-thumb">
-                                    <a href="#"><img src="/images/{{ blog.image }}" alt=""/></a>
+                                    <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}"><img src="/images/{{ blog.image }}" alt=""/></a>
                                 </div>
                                 <div class="widget-content">
-                                    <a href="#">{{ blog.title }}</a>
+                                    <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">{{ blog.title }}</a>
                                     <span><i class="icon-calendar"></i>{{ blog.updated_at|date:"M d Y" }}</span>
                                 </div>
                                 <div class="clearfix"></div>

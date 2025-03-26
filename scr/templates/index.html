@@ -486,8 +486,8 @@
                 <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
                     <div class="blog-item-wrapper">
                         <div class="blog-item-img">
-                            <a href="single-post.html">
-                                <img alt="" src="images/{{ blog.image }}">
+                            <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">
+                                <img alt="#" src="images/{{ blog.image }}">
                             </a>
                         </div>
                         <div class="blog-item-text">
@@ -497,10 +497,10 @@
                                 <span class="date float-right"><i class="lni-calendar"></i>{{ blog.created_at|date:"M d Y" }}</span>
                             </div>
                             <h3>
-                                <a href="single-post.html">{{ blog.title|slice:":30" }} ...</a>
+                                <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">{{ blog.title|slice:":30" }} ...</a>
                             </h3>
                             <p>{{ blog.content|slice:":200" }} ...</p>
-                            <a class="btn btn-common" href="single-post.html">Read More</a>
+                            <a class="btn btn-common" href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">Read More</a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+
+<div class="page-header" style="background: url(../../static/img/banner1.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="product-title">Blog Details</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Home /</a></li>
+                        <li class="current">Blog Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock banner %}
+
+
+{% block content %}
+
+<div id="content" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+
+                <div class="blog-post single-post">
+
+                    <div class="post-thumb">
+                        <a href="#"><img class="img-fluid" src="/images/{{ blog.image }}" alt=""></a>
+                        <div class="hover-wrap">
+                        </div>
+                    </div>
+
+
+                    <div class="post-content">
+                        <h2 class="post-title"><a href="blog_detail.html">{{ blog.title }}</a></h2>
+                        <div class="meta">
+                            <span class="meta-part"><a href="#"><i class="lni-user"></i> {{ blog.user }}</a></span>
+                            <span class="meta-part"><a href="#"><i class="lni-alarm-clock"></i> {{ blog.updated_at|date:"M d Y" }}</a></span>
+                            <span class="meta-part"><a href="#"><i class="lni-folder"></i> {{ blog.category }}</a></span>
+                            <span class="meta-part"><a href="#"><i class="lni-comments-alt"></i> {{ blog.comment_count }} Comments</a></span>
+                        </div>
+                        <div class="entry-summary">
+                            <p>{{ blog.content }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div id="comments">
+                    <div class="comment-box">
+                        <h3>Comments</h3>
+                        <ol class="comments-list">
+                            {% for comment in comments %}
+                                <li>
+                                    <div class="media">
+                                        <div class="thumb-left">
+                                            <a href="#">
+                                                <img class="img-fluid" src="/images/{{ comment.user.image }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="info-body">
+                                            <div class="media-heading">
+                                                <h4 class="name">{{ comment.user.firstname }} {{ comment.user.lastname }}</h4>
+                                                <span class="comment-date"><i
+                                                        class="lni-alarm-clock"></i> {{ comment.created_at|date:"M d Y" }}</span>
+                                                <a href="#" class="reply-link"><i class="lni-reply"></i> Reply</a>
+                                            </div>
+                                            <p>{{ comment.comment }}</p>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        {% for reply in comment.replies %}
+                                            <li>
+                                                <div class="media">
+                                                    <div class="thumb-left">
+                                                        <a href="#">
+                                                            <img class="img-fluid" src="/images/{{ reply.user.image }}" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="info-body">
+                                                        <div class="media-heading">
+                                                            <h4 class="name">{{ reply.user.firstname }} {{ reply.user.lastname }}</h4>
+                                                            <span class="comment-date"><i class="lni-alarm-clock"></i> {{ reply.created_at|date:"M d Y" }}</span>
+                                                            <a href="#" class="reply-link"><i class="lni-reply"></i> Reply</a>
+                                                        </div>
+                                                        <p>{{ reply.comment }}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ol>
+
+                        <div id="respond">
+                            <h2 class="respond-title">Leave A Comment</h2>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <input id="author" class="form-control" name="author" type="text" value=""
+                                                   size="30" placeholder="Your Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <input id="email" class="form-control" name="author" type="text" value=""
+                                                   size="30" placeholder="Your E-Mail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12col-xs-12">
+                                        <div class="form-group">
+                                            <textarea id="comment" class="form-control" name="comment" cols="45"
+                                                      rows="8" placeholder="Massage..."></textarea>
+                                        </div>
+                                        <button type="submit" id="submit" class="btn btn-common">Post Comment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <aside id="sidebar" class="col-lg-4 col-md-12 col-xs-12 right-sidebar">
+
+                <div class="widget_search">
+                    <form id="search-form">
+                        <input type="search" class="form-control" autocomplete="off" name="s" placeholder="Search..."
+                               id="search-input" value="">
+                        <button type="submit" id="search-submit" class="search-btn"><i class="lni-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="widget categories">
+                    <h4 class="widget-title">All Categories</h4>
+                    <ul class="categories-list">
+                        {% for category in categories %}
+                            <li>
+                                <a href="#">
+                                    {{ category.name }}<span class="category-counter">({{ category.category_count }})</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-popular-posts">
+                    <h4 class="widget-title">Recent Posts</h4>
+                    <ul class="posts-list">
+                        {% for blog in recent_blogs %}
+                            <li>
+                                <div class="widget-thumb">
+                                    <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}"><img src="/images/{{ blog.image }}" alt=""/></a>
+                                </div>
+                                <div class="widget-content">
+                                    <a href="{% url 'blog_detail' pk=blog.id slug=blog.slug %}">{{ blog.title|slice:":30" }}</a>
+                                    <span><i class="icon-calendar"></i>{{blog.created_at|date:"M d Y"}}</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h4 class="widget-title">Advertisement</h4>
+                    <div class="add-box">
+                        <img src="../../static/img/img1.jpg" alt="">
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

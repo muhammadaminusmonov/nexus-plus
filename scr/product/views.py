@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from region.models import Region
 from category.models import Category
-from django.db.models import Count, Sum, Prefetch
+from django.db.models import Count, Prefetch
 from product.models import Product, ProductImage
 from user.models import Profile
 from django.core.paginator import Paginator

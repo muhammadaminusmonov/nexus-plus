@@ -53,7 +53,7 @@
                     </div>
                     <div class="header-top-right float-right">
                         {% if user.is_authenticated %}
-                        <a href class="header-top-button"><i class="lni-lock"></i>{{ user.firstname }}</a> |
+                        <a href class="header-top-button"><i class="lni-lock"></i> {{ user }}</a> |
                         <a href="{% url 'logout' %}" class="header-top-button"><i class="lni-logout"></i> Log Out</a>
                         {% else %}
                         <a href="{% url 'login'%}" class="header-top-button"><i class="lni-lock"></i> Log In</a> |
@@ -82,32 +82,24 @@
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
                 <ul class="navbar-nav mr-auto w-100 justify-content-center">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'home' %}">
-                            Home
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'products' %}">
                             Products
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           href="#">
-                            Pages
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'about' %}">About Us</a>
-                            <a class="dropdown-item" href="{% url 'services' %}">Services</a>
-                            <a class="dropdown-item" href="{% url 'packages' %}">Packages</a>
-                            <a class="dropdown-item" href="{% url 'faq' %}">FAQ</a>
-                        </div>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blogs' %}">
                             Blog
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services' %}">
+                            Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">
+                            About Us
                         </a>
                     </li>
                     <li class="nav-item">
@@ -117,34 +109,33 @@
                     </li>
                 </ul>
                 <div class="post-btn">
-                    <a class="btn btn-common" href="#"><i class="lni-pencil-alt"></i> Post an Ad</a>
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-common" href="{% url 'product_add' %}"><i class="lni-pencil-alt"></i> Post an Ad</a>
+                    {% else %}
+                        <a class="btn btn-common" href="{% url 'login'  %}?url=product_add"><i class="lni-pencil-alt"></i> Post an Ad</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <ul class="mobile-menu">
             <li>
-                <a class="active" href="{% url 'home' %}">
-                    Home
-                </a>
+                <a class="active" href="{% url 'home' %}">Home</a>
             </li>
             <li>
                 <a href="{% url 'products' %}">Products</a>
             </li>
             <li>
-                <a href="#">Pages</a>
-                <ul class="dropdown">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="pricing.html">Packages</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
+                <a href="{% url 'services' %}">Services</a>
             </li>
             <li>
                 <a href="{% url 'blogs' %}">Blog</a>
             </li>
             <li>
-                <a href="#">Contact Us</a>
+                <a href="{% url 'about' %}">About Us</a>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">Contact Us</a>
             </li>
         </ul>
 

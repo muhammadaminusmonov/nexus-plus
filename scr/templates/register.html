@@ -32,48 +32,36 @@
                     <h3>
                         Register
                     </h3>
-                    <form class="login-form">
+                    <form class="login-form" method="post">
+                        {% csrf_token %}
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="lni-user"></i>
-                                <input type="text" id="Firstname" class="form-control" name="email" placeholder="Fist name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-icon">
-                                <i class="lni-user"></i>
-                                <input type="text" id="Lastname" class="form-control" name="email" placeholder="Last name (Optional)">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-icon">
-                                <i class="lni-lock"></i>
-                                <input type="text" id="Number" class="form-control" name="email" placeholder="Phone number (Optional)">
+                                {{ form.firstname }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="lni-user"></i>
-                                <input type="text" id="Username" class="form-control" name="email" placeholder="Username">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-icon">
+                                <i class="lni-envelope"></i>
+                                {{ form.email }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="lni-lock"></i>
-                                <input type="password" class="form-control" placeholder="Password">
+                                {{ form.password1 }}
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="lni-lock"></i>
-                                <input type="password" class="form-control" placeholder="Retype Password">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="checkedall">
-                                <label class="custom-control-label" for="checkedall">By registering, you accept our
-                                    Terms & Conditions</label>
+                                {{ form.password2 }}
                             </div>
                         </div>
                         <div class="text-center">

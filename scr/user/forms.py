@@ -5,43 +5,27 @@ from .models import Profile
 
 
 class RegisterForm(UserCreationForm):
-    firstname = forms.CharField(max_length=50, required=True)
-    lastname = forms.CharField(max_length=50, required=False)
-    phone = forms.CharField(max_length=20, required=False)
-    address = forms.CharField(widget=forms.Textarea, required=False)
-    image = forms.ImageField(required=False)
-    bio = forms.CharField(max_length=200, required=False)
+    firstname = forms.CharField(max_length=50,
+                                widget=forms.TextInput(attrs={'class': "form-control", "placeholder": "Firstname"}))
+    username = forms.CharField(max_length=50,
+                               widget=forms.TextInput(attrs={'class': "form-control", "placeholder": "Username"}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': "form-control", "placeholder": "Email"}))
+
+    password1 = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'class': "form-control", "placeholder": "Password"}))
+    password2 = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'class': "form-control", "placeholder": "Password"}))
 
     class Meta:
         model = User
-        fields = [
-            "username",
-            "password1",
-            "password2",
-            "firstname",
-            "lastname",
-            "phone",
-        ]
-        widgets = {
-            'username': forms.TextInput(attrs={'class': "form-control", "placeholder": "Username"}),
-            'password1': forms.PasswordInput(attrs={'class': "form-control", "placeholder": "Password"}),
-            'password2': forms.PasswordInput(attrs={'class': "form-control", "placeholder": "Confirm Password"}),
-        }
+        fields = ['username', 'firstname', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
-        user = super(RegisterForm, self).save(commit=False)
-        user.firstname = self.cleaned_data.get('firstname')
-        user.lastname = self.cleaned_data.get('lastname')
-        user.phone = self.cleaned_data.get('phone')
-        if commit:
-            user.save()
+        user = super().save()
+        if user:
             Profile.objects.create(
                 user=user,
-                firstname=self.cleaned_data.get('firstname'),
-                lastname=self.cleaned_data.get('lastname'),
-                phone=self.cleaned_data.get('phone'),
+                firstname=self.cleaned_data['firstname']
             )
-
+        return user
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=50,

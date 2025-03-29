@@ -6,17 +6,23 @@ from .forms import LoginForm, RegisterForm
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+
         if form.is_valid():
-            form.save()
-            return redirect('login')
-    form = RegisterForm()
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = RegisterForm()
     ctx = {
-        'form': form,
+        'form': form
     }
     return render(request, 'register.html', ctx)
 
 
 def login_view(request):
+
+    url = request.GET.get('url', 'home')
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -25,7 +31,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect(url)
     form = LoginForm()
     ctx = {'form': form}
     return render(request, 'login.html', ctx)

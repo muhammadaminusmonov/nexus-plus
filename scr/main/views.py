@@ -42,14 +42,6 @@ def services_page(request):
     ctx = {}
     return render(request, 'services.html', ctx)
 
-def packages_page(request):
-    ctx = {}
-    return render(request, 'packages.html', ctx)
-
-def faq_page(request):
-    ctx = {}
-    return render(request, 'faq.html', ctx)
-
 def contact_page(request):
     ctx = {}
     return render(request, 'contact.html', ctx)

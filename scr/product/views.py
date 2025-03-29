@@ -57,3 +57,7 @@ def product_detail(request, pk, slug=None):
         "products_by_seller": products_by_seller,
     }
     return render(request, 'product_detail.html', ctx)
+
+def product_add(request):
+    ctx = {}
+    return render(request, 'product_add.html', ctx)

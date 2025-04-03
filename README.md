@@ -1,1 +1,3 @@
-<iframe src="muhammadamins-organization.gitbook.io/nexus_plus/" width="100%" height="500px"></iframe>
+## Documentation
+
+Our full documentation is available on [GitBook](muhammadamins-organization.gitbook.io/nexus_plus/).

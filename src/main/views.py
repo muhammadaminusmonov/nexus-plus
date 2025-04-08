@@ -5,6 +5,8 @@ from product.models import Product, ProductImage
 from django.db.models import Count, Prefetch
 from blog.models import Blog
 from category.models import Category
+from .forms import EmailForm
+from django.core.mail import send_mail
 
 def home_page(request):
     categories = Category.objects.filter(is_main=True)
@@ -43,5 +45,15 @@ def services_page(request):
     return render(request, 'services.html', ctx)
 
 def contact_page(request):
-    ctx = {}
+    form = EmailForm()
+    send_mail(
+        "Subject here",
+        "Here is the message.",
+        "from@example.com",
+        ["muhammadamincoder@gmail.com"],
+        fail_silently=False,
+    )
+    ctx = {
+        "form": form
+    }
     return render(request, 'contact.html', ctx)

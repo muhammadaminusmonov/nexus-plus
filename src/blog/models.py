@@ -25,7 +25,7 @@ class BlogComment(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="comments")
     comment = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     reply = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True, related_name="replies")
 
     def __str__(self):

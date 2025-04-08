@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from region.models import Region
 from category.models import Category
 from django.db.models import Count, Prefetch
 from product.models import Product, ProductImage
 from user.models import Profile
 from django.core.paginator import Paginator
+from .forms import AddProductForm
+from django.contrib.auth.models import User
 
 def product_list(request):
     regions = Region.objects.all()
@@ -59,5 +61,22 @@ def product_detail(request, pk, slug=None):
     return render(request, 'product_detail.html', ctx)
 
 def product_add(request):
-    ctx = {}
+    user = request.user
+    profile = user.profile
+
+    if request.method == "POST":
+        form = AddProductForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user.profile
+            product.save()
+            return redirect('home')
+    else:
+        form = AddProductForm()
+
+    ctx = {
+        "user": user,
+        "profile": profile,
+        "form": form,
+    }
     return render(request, 'product_add.html', ctx)

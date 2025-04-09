@@ -9,7 +9,7 @@ class Category(models.Model):
     image = models.ImageField(upload_to='')
     is_main = models.BooleanField(default=False)
     parent = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='children')
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=255)
     status = models.SmallIntegerField(choices=STATUS_CHOICES, default=1)
 
     def __str__(self):
@@ -18,7 +18,6 @@ class Category(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length=30, null=False, blank=False)
-
 
     def __str__(self):
         return self.name

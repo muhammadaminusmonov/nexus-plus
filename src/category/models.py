@@ -6,7 +6,7 @@ class Category(models.Model):
         (2, "BLOG"),
     ]
     name = models.CharField(max_length=50, blank=True, null=True)
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='', blank=True, null=True)
     is_main = models.BooleanField(default=False)
     parent = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True, related_name='children')
     slug = models.SlugField(max_length=255)

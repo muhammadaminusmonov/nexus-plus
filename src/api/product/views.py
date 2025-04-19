@@ -1,0 +1,2 @@
+def products(request):
+    pass

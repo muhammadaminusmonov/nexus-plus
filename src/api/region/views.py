@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from api.region.serializers import RegionSerializer
 from region.models import Region
@@ -41,3 +41,7 @@ def region_detail(request, pk):
     elif request.method == 'DELETE':
         region.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class RegionViewSet(viewsets.ModelViewSet):
+    queryset = Region.objects.all()
+    serializer_class = RegionSerializer

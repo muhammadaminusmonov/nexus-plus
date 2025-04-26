@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from api.brand.serializers import BrandSerializer
 from category.models import Brand
 
@@ -40,3 +40,11 @@ def brand_detail(request, pk):
     elif request.method == 'DELETE':
         brand.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class BrandGenericConcreteAPIView(ListCreateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+
+class BrandDetailGenericConcreteAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer

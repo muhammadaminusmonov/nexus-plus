@@ -1,12 +1,12 @@
-from django.core.serializers import get_serializer
 from django.shortcuts import get_object_or_404
-from rest_framework import status, mixins
-from rest_framework.generics import GenericAPIView
+from rest_framework import status, mixins, viewsets
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from blog.models import Blog
 from .serializers import BlogSerializer
+
 
 class BlogView(APIView):
     def get(self, request):
@@ -125,3 +125,14 @@ class BlogDetailGenericMixinView(mixins.RetrieveModelMixin, mixins.UpdateModelMi
 
 # ----------------------------------------------------------------
 
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class BlogConcrete(ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class BlogDetailConcrete(RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

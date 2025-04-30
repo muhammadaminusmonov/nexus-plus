@@ -1,7 +1,8 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
 from api.brand.serializers import BrandSerializer
 from category.models import Brand
 
@@ -18,6 +19,8 @@ def brand(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def brand_detail(request, pk):
@@ -41,10 +44,16 @@ def brand_detail(request, pk):
         brand.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 class BrandGenericConcreteAPIView(ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
 
 class BrandDetailGenericConcreteAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+
+class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer

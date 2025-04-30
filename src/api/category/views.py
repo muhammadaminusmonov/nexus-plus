@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import CategorySerializer
@@ -11,13 +11,14 @@ def category(request):
         categories = Category.objects.all()
         result = CategorySerializer(categories, many=True).data
         return Response(result, status=status.HTTP_200_OK)
-
     elif request.method == "POST":
         serializer = CategorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def category_detail(request, pk):
@@ -40,3 +41,9 @@ def category_detail(request, pk):
     elif request.method == "DELETE":
         categories.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

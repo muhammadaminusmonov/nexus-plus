@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from api.region.serializers import RegionSerializer
 from region.models import Region
 from rest_framework.decorators import api_view
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 
 @api_view(['GET', 'POST'])
@@ -19,6 +20,7 @@ def region(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def region_detail(request, pk):
@@ -42,6 +44,17 @@ def region_detail(request, pk):
         region.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    return Response({"detail": f"Method '{request.method}' not allowed "}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
 class RegionViewSet(viewsets.ModelViewSet):
+    queryset = Region.objects.all()
+    serializer_class = RegionSerializer
+
+class RegionConcrete(ListCreateAPIView):
+    queryset = Region.objects.all()
+    serializer_class = RegionSerializer
+
+class RegionDetailConcrete(RetrieveUpdateDestroyAPIView):
     queryset = Region.objects.all()
     serializer_class = RegionSerializer

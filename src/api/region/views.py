@@ -4,7 +4,7 @@ from api.region.serializers import RegionSerializer
 from region.models import Region
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 @api_view(['GET', 'POST'])
 def region(request):
@@ -48,6 +48,7 @@ def region_detail(request, pk):
 
 
 class RegionViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
 

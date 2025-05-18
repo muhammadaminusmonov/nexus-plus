@@ -122,13 +122,24 @@ WSGI_APPLICATION = 'nexus.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "nexus_db",
+#         "USER": "nexus_user",
+#         "PASSWORD": "nexus_user",
+#         "HOST": "172.17.0.2",
+#         "PORT": "5432",
+#     }
+# }
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "nexus_db",
-        "USER": "nexus_user",
-        "PASSWORD": "nexus_user",
-        "HOST": "127.0.0.1",
+        "NAME": os.environ.get("DB_NAME", "nexus_db"),
+        "USER": os.environ.get("DB_USER", "nexus_user"),
+        "PASSWORD": os.environ.get("DB_PASS", "nexus_user"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": "5432",
     }
 }
